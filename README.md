@@ -1,6 +1,7 @@
-Nagios plugins
+Icinga plugins
 --------------
 
-This is a repo for collating nagios plugins which I've written.
+This is a repo for collating icinga/nagios plugins which I've written to monitor various networked devices.
+
 
 
