@@ -35,6 +35,7 @@ $critical  = isset($options['critical'])? $options['critical'] : (isset($options
 /* Determine what to process */
 if(isset($options['status']) || !isset($options['consumable'])) {
     $checkStatus = true;
+    $consumable_num = 0;
 } else {
     $checkStatus = false;
     $consumable_num = (int)$options['consumable'];
@@ -50,7 +51,8 @@ if($hostname == "" || $warning < 0 || $warning > 100 ||
 
 if($checkStatus) {
     $regex = "^iso.3.6.1.2.1.43.16.5.1.2.1.1 ";
-    $ret = walk($hostname, $community, $regex);
+    $base = "iso.3.6.1.2.1.43.16.5.1.2.1.1";
+    $ret = walk($hostname, $community, $regex, $base);
     if(count($ret) == 1) {
         $status = array_shift($ret);
         if($status != "") {
@@ -67,7 +69,8 @@ if($checkStatus) {
 } else {
     // Check consumable
     $regex = "^iso.3.6.1.2.1.43.11.1.1.[689].1.".(int)$consumable_num." ";
-    $ret = walk($hostname, $community, $regex);
+    $base = "iso.3.6.1.2.1.43.11.1.1";
+    $ret = walk($hostname, $community, $regex, $base);
     if(count($ret) == 3) {
         $name = array_shift($ret);
         $total = array_shift($ret);
@@ -90,10 +93,9 @@ if($checkStatus) {
 }
 
 /* snmpwalk and capture the values */
-function walk($host, $community, $regex) {
-    $cmd_base = "snmpwalk %s -c %s -v 1 | grep %s";
-    $cmd = sprintf($cmd_base, escapeshellarg($host), escapeshellarg($community), escapeshellarg($regex));
-
+function walk($host, $community, $regex, $base) {
+    $cmd_base = "snmpwalk %s -c %s -v 1 %s | grep %s";
+    $cmd = sprintf($cmd_base, escapeshellarg($host), escapeshellarg($community), escapeshellarg($base), escapeshellarg($regex));
     exec($cmd, $lines);
     $ret = array();
 
