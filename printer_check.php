@@ -83,7 +83,7 @@ if($checkStatus) {
             echo "$name WARNING : $percentage%\n";
             exit(1);
         } else {
-            echo "$name OK : $percentage$\n";
+            echo "$name OK : $percentage%\n";
             exit(0);
         }
     } else {
