@@ -46,7 +46,7 @@ if($hostname == "" || $warning < 0 || $warning > 100 ||
     $critical < 0 || (!$checkStatus && $consumable_num < 1) || $critical > 100
     || $warning < $critical || isset($options['help'])) {
     echo $usage;   
-    exit(3);
+    exit(0);
 }
 
 if($checkStatus) {
