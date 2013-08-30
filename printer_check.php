@@ -46,7 +46,7 @@ if($hostname == "" || $warning < 0 || $warning > 100 ||
     $critical < 0 || (!$checkStatus && $consumable_num < 1) || $critical > 100
     || $warning < $critical || isset($options['help'])) {
     echo $usage;   
-    exit(0);
+    exit(3);
 }
 
 if($checkStatus) {
@@ -58,7 +58,7 @@ if($checkStatus) {
         if($status != "") {
             /* Print back the status */
             echo "$status\n";
-            exit(3);
+            exit(0);
         }
         echo "Printer did not report a status.\n";
         exit(3);
