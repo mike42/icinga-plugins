@@ -43,7 +43,7 @@ if(isset($options['status']) || !isset($options['consumable'])) {
 
 /* Catch a bunch of bad options here */
 if($hostname == "" || $warning < 0 || $warning > 100 ||
-    $critical < 0 || $consumable_num < 1 || $critical > 100
+    $critical < 0 || (!$checkStatus && $consumable_num < 1) || $critical > 100
     || $warning < $critical || isset($options['help'])) {
     echo $usage;   
     exit(3);
