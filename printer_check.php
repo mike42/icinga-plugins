@@ -60,8 +60,8 @@ if($checkStatus) {
             echo "$status\n";
             exit(0);
         }
-        echo "Printer did not report a status.\n";
-        exit(3);
+        echo "Empty status string\n";
+        exit(0);
     } else {
         echo "Printer did not report a status.\n";
         exit(3);
